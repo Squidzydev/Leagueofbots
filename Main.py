@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 
 all_champs_russia={
+"нико":"neeko",
 "атрокс":"aatrox",
 "экко":"ekko",
 "джинкс":"jinx",
