@@ -6,7 +6,143 @@ import os
 from bs4 import BeautifulSoup
 
 
-
+all_champs_russia={
+"атрокс":"aatrox",
+"экко":"ekko",
+"джинкс":"jinx",
+"фортуна":"miss-fortune",
+"шен":"shen",
+"варус":"varus",
+"ари":"ahri",
+"элиза":"elise",
+"калиста":"kalista",
+"мордекайзер":"mordekaiser",
+"шивана":"shyvana",
+"вейн":"vayne",
+"акали":"akali",
+"эвелин":"evelynn",
+"карма":"karma",
+"моргана":"morgana",
+"синджед":"singed",
+"вейгар":"veigar",
+"алистар":"alistar",
+"эзреаль":"ezreal",
+"картус":"karthus",
+"нами":"nami",
+"сион":"sion",
+"велкоз":"velkoz",
+"амуму":"amumu",
+"фиддлстикс":"fiddlesticks",
+"касадин":"kassadin",
+"насус":"nasus",
+"сивир":"sivir",
+"анивия":"anivia",
+"флора":"fiora",
+"катарина":"katarina",
+"наутилус":"nautilus",
+"скарнер":"skarner",
+"виктор":"viktor",
+"энни":"annie",
+"физз":"fizz",
+"кейл":"kayle",
+"нидалли":"nidalee",
+"сона":"sona",
+"владимир":"vladimir",
+"эш":"ashe",
+"галио":"galio",
+"кеннен":"kennen",
+"ноктюрн":"nocturne",
+"сорака":"soraka",
+"волибир":"volibear",
+"аурелион":"aurelion",
+"гангпланк":"gangplank",
+"казикс":"khazix",
+"нуну":"nunu",
+"свейн":"swain",
+"варвик":"warwick",
+"азир":"azir",
+"гарен":"garen",
+"киндред":"kindred",
+"олаф":"olaf",
+"синдра":"syndra",
+"вуконг":"wukong",
+"бард":"bard",
+"гнар":"gnar",
+"клед":"kled",
+"орианна":"orianna",
+"тамкенч":"tahm-kench",
+"зерат":"xerath",
+"блицкранк":"blitzcrank",
+"грагас":"gragas",
+"когмао":"kogmaw",
+"пантеон":"pantheon",
+"талия":"taliyah",
+"ксинжао":"xin-zhao",
+"брэнд":"brand",
+"бренд":"brand",
+"грейвс":"graves",
+"леблан":"leblanc",
+"поппи":"poppy",
+"талон":"talon",
+"ясуо":"yasuo",
+"браум":"braum",
+"гекарим":"hecarim",
+"лисин":"lee-sin",
+"лесин":"lee-sin",
+"квинн":"quinn",
+"тарик":"taric",
+"йорик":"yorick",
+"кайтлин":"caitlyn",
+"хеймердингер":"heimerdinger",
+"леона":"leona",
+"раммус":"rammus",
+"тимо":"teemo",
+"зак":"zac",
+"камила":"camille",
+"иллаой":"illaoi",
+"лисандра":"lissandra",
+"раксай":"reksai",
+"треш":"thresh",
+"зед":"zed",
+"кассиопея":"cassiopeia",
+"ирелия":"irelia",
+"люциан":"lucian",
+"ренектон":"renekton",
+"тристана":"tristana",
+"зиггс":"ziggs",
+"чогат":"chogath",
+"иверн":"ivern",
+"лулу":"lulu",
+"ренгар":"rengar",
+"трандл":"trundle",
+"зилеан":"zilean",
+"корги":"corki",
+"жанна":"janna",
+"люкс":"lux",
+"ривен":"riven",
+"триндамир":"tryndamere",
+"зира":"zyra",
+"дариус":"darius",
+"джарван":"jarvan-iv",
+"мальфит":"malphite",
+"рамбл":"rumble",
+"твистедфейт":"twisted-fate",
+"диана":"diana",
+"джакс":"jax",
+"мальзахар":"malzahar",
+"райз":"ryze",
+"твич":"twitch",
+"мундо":"dr-mundo",
+"джейс":"jayce",
+"маокай":"maokai",
+"седжуани":"sejuani",
+"удир":"udyr",
+"дрейвен":"draven",
+"джин":"jhin",
+"мастерйи":"master-yi",
+"шако":"shaco",
+"ургот":"urgot",
+}
 Bot = commands.Bot(command_prefix='!')
 all_runes_russia ={
     "Press the Attack":"Решительное наступление",
@@ -86,8 +222,9 @@ async def runes(ctx, *, args):
     await ctx.message.delete()
     name_of_hero = ''
     for x in args:
-        name_of_hero = args + '+'
-    name_of_hero = name_of_hero[0:-1]
+      name_of_hero = args
+    name = name_of_hero
+    name_of_hero=all_champs_russia[name_of_hero.lower()]
     url = 'https://www.leaguespy.gg/league-of-legends/champion/' + name_of_hero+'/stats'
     header = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36',
@@ -111,7 +248,7 @@ async def runes(ctx, *, args):
     rune_add1 = rune_add[0]['title']
     rune_add2 = rune_add[1]['title']
     rune_add3 = rune_add[2]['title']
-    title = 'Руны на чемпиона '+name_of_hero
+    title = 'Руны на чемпиона '+name
     disc = 'Главная руна: \n'+main_rune+'\n' + 'Добавочные руны: \n'+rune_sec1+'\n'+rune_sec2+'\n'+rune_sec3+'\n'+'Вторичные руны: \n'+rune_sec4+'\n'+rune_sec5+'\n'+'Адаптивные руны: \n'+rune_add1+'\n'+rune_add2+'\n'+rune_add3
     embed = discord.Embed(color=0x00ff00, title=title, description=disc)
     await ctx.send(embed = embed)
@@ -123,7 +260,7 @@ async def runes(ctx, *, args):
 
 
 
-@Bot.command()
+@Bot.command(aliases=['руны'])
 async def rank(ctx, *,args):
     name = ''
     await ctx.message.delete()
