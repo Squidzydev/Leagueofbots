@@ -1,14 +1,12 @@
 import discord
 from discord.ext import commands
-
+import asyncio
 import requests
 import os
 from bs4 import BeautifulSoup
 
 
 all_champs_russia={
-"афелий":"aphelios",
-"нико":"neeko",
 "атрокс":"aatrox",
 "экко":"ekko",
 "джинкс":"jinx",
@@ -211,6 +209,15 @@ all_runes_russia ={
     "Approach Velocity":"Скорость сближения",
     "Time Warp Tonic":"Тоник искривления времени",
 }
+Bot.remove_command('help')
+@Bot.event
+async def on_member_join(member):
+    channel = Bot.get_channel(705400966148784149)
+    await channel.send(f'Привет, легенда {member.mention}, выбери роли(!бот, !топ, !лес, !мид, !саппорт)')
+@Bot.event
+async def on_ready():
+    activity = discord.Game(name='!help - помощь по боту', )
+    await Bot.change_presence(activity=activity)
 
 @Bot.command()
 @commands.has_permissions(administrator=True)
@@ -218,8 +225,17 @@ async def say(ctx, *,args):
 
     await ctx.message.delete()
     await ctx.send(args)
-
-@Bot.command(aliases=['руны'])
+@Bot.command(aliases=['помощь'])
+@commands.has_permissions(administrator=True)
+async def help(ctx):
+    await ctx.message.delete()
+    embed = discord.Embed(title='Команды', description='!(лайн) - выбрать роль в лиге\n'
+                                                       '!руны {чемпион} - руны на чемпиона(имя чемпиона писать слитно)\n'
+                                                       '!ранк {ник призывателя} - ранк и мейн призывателя в ранкеде', color=0x000000)
+    message = await ctx.send(embed = embed)
+    await asyncio.sleep(10)
+    await message.delete()
+@Bot.command()
 async def runes(ctx, *, args):
     await ctx.message.delete()
     name_of_hero = ''
@@ -379,4 +395,4 @@ async def clear(ctx, amount: int = None):
 
 key = os.environ.get('TOKEN')
 
-Bot.run(key)
+Bot.run('NzA1MzcxMzYzMDI3ODQ1MTUw.XqquXA.0j776SXOG3FUfOj5rJHLGwJomyY')
