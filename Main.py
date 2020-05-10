@@ -400,4 +400,4 @@ async def clear(ctx, amount: int = None):
 
 key = os.environ.get('TOKEN')
 
-Bot.run('NzA1MzcxMzYzMDI3ODQ1MTUw.XqquXA.0j776SXOG3FUfOj5rJHLGwJomyY')
+Bot.run(key)
