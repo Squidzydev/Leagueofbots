@@ -269,7 +269,8 @@ async def runes(ctx, *, args):
     rune_add3 = rune_add[2]['title']
     title = 'Руны на чемпиона '+name
     disc = 'Главная руна: \n'+main_rune+'\n' + 'Добавочные руны: \n'+rune_sec1+'\n'+rune_sec2+'\n'+rune_sec3+'\n'+'Вторичные руны: \n'+rune_sec4+'\n'+rune_sec5+'\n'+'Адаптивные руны: \n'+rune_add1+'\n'+rune_add2+'\n'+rune_add3
-    embed = discord.Embed(color=0x00ff00, title=title, description=disc)
+    embed = discord.Embed(color=0xf5f5f5, title=title, description=disc)
+    embed.set_footer(text= 'LeagueOfBots', icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg'
     await ctx.send(embed = embed)
 
 
@@ -312,7 +313,8 @@ async def rank(ctx, *,args):
     t = 'Инфо о игроке '+ name
     main = '```css\n'+'Мейн: '+main.text+'```'
     ranke = '```css'+rank1.replace(' ', '')+'```'
-    embed = discord.Embed(title=t, description=ranke +''+main, color=0x00ff00)
+    embed = discord.Embed(title=t, description=ranke +''+main, color=0xf5f5f5)
+                     embed.set_footer(text= 'LeagueOfBots', icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg'
     await ctx.send(embed=embed)
 @Bot.command(aliases=['саппорт', 'сап', 'sup'])
 async def support(ctx,):
@@ -388,7 +390,8 @@ async def clear(ctx, amount: int = None):
     else:
         await ctx.channel.purge(limit=amount)
         emb = discord.Embed(title='Удаление сообщений',
-                            description=f'Админ {ctx.author.mention} почистил чат.')
+                            description=f'Админ {ctx.author.mention} почистил чат.', color=0xf5f5f5)
+        emb.set_footer(text= 'LeagueOfBots', icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg'
         await ctx.send(embed=emb, delete_after=10)
 
 
