@@ -232,6 +232,7 @@ async def help(ctx):
     embed = discord.Embed(title='Команды', description='!(лайн) - выбрать роль в лиге\n'
                                                        '!руны {чемпион} - руны на чемпиона(имя чемпиона писать слитно)\n'
                                                        '!ранк {ник призывателя} - ранк и мейн призывателя в ранкеде', color=0x000000)
+    embed.set_author(name= 'LeagueOfBots', icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     message = await ctx.send(embed = embed)
     await asyncio.sleep(10)
     await message.delete()
