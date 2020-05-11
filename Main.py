@@ -231,13 +231,12 @@ async def help(ctx):
     await ctx.message.delete()
     embed = discord.Embed(title='Команды', description='!(лайн) - выбрать роль в лиге\n'
                                                        '!руны {чемпион} - руны на чемпиона(имя чемпиона писать слитно)\n'
-                                                       '!ранк {ник призывателя} - ранк и мейн призывателя в ранкеде\n'
-                                                       'https://cutt.ly/leagueofbots - добавить бота в свой канал', color=0xf5f5f5)
+                                                       '!ранк {ник призывателя} - ранк и мейн призывателя в ранкеде', color=0xf5f5f5)
     embed.set_footer(text= 'LeagueOfBots', icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     message = await ctx.send(embed = embed)
     await asyncio.sleep(10)
     await message.delete()
-@Bot.command(aliases=['руны'])
+@Bot.command()
 async def runes(ctx, *, args):
     await ctx.message.delete()
     name_of_hero = ''
@@ -269,9 +268,12 @@ async def runes(ctx, *, args):
     rune_add2 = rune_add[1]['title']
     rune_add3 = rune_add[2]['title']
     title = 'Руны на чемпиона '+name
-    disc = 'Главная руна: \n'+main_rune+'\n' + 'Добавочные руны: \n'+rune_sec1+'\n'+rune_sec2+'\n'+rune_sec3+'\n'+'Вторичные руны: \n'+rune_sec4+'\n'+rune_sec5+'\n'+'Адаптивные руны: \n'+rune_add1+'\n'+rune_add2+'\n'+rune_add3
-    embed = discord.Embed(color=0xf5f5f5, title=title, description=disc)
+    embed = discord.Embed(color=0xf5f5f5, title=title)
+    embed.add_field(name='Главные руны', value=main_rune+'\n'+rune_sec1+'\n'+rune_sec2+'\n'+rune_sec3, inline=True)
+    embed.add_field(name='Добавочные руны', value=rune_sec4+'\n'+rune_sec5, inline=True)
+    embed.add_field(name='Адаптивные руны', value=rune_add1+'\n'+rune_add2+'\n'+rune_add3)
     embed.set_footer(text='LeagueOfBots',icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
+    embed.set_author(icon_url=ctx.message.author.avatar_url, name=ctx.message.author.nick)
     await ctx.send(embed = embed)
 
 
@@ -281,7 +283,7 @@ async def runes(ctx, *, args):
 
 
 
-@Bot.command(aliases=['ранк', 'ранг'])
+@Bot.command()
 async def rank(ctx, *,args):
     name = ''
     await ctx.message.delete()
