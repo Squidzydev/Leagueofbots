@@ -236,7 +236,7 @@ async def help(ctx):
     message = await ctx.send(embed = embed)
     await asyncio.sleep(10)
     await message.delete()
-@Bot.command()
+@Bot.command(aliases=['руны'])
 async def runes(ctx, *, args):
     await ctx.message.delete()
     name_of_hero = ''
@@ -283,7 +283,7 @@ async def runes(ctx, *, args):
 
 
 
-@Bot.command()
+@Bot.command(aliases=['rang','ранк','ранг'])
 async def rank(ctx, *,args):
     name = ''
     await ctx.message.delete()
