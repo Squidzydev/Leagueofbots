@@ -273,9 +273,17 @@ async def runes(ctx, *, args):
     embed.add_field(name='Добавочные руны', value=rune_sec4+'\n'+rune_sec5, inline=True)
     embed.add_field(name='Адаптивные руны', value=rune_add1+'\n'+rune_add2+'\n'+rune_add3)
     embed.set_footer(text='LeagueOfBots',icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
-    embed.set_author(icon_url=ctx.message.author.avatar_url, name=ctx.message.author.name)
+    embed.set_author(icon_url=ctx.message.author.avatar_url, name=ctx.message.author.nick)
+    r = requests.get(url, headers=header)
+    bs = BeautifulSoup(r.text, 'html.parser')
+    text = bs.find('div', attrs={'class': 'skill-block__top'})
+    text = text.find_all('li')
+    poryadok = ''
+    for x in text:
+        poryadok = poryadok + x.find('span').text + '->'
+    poryadok = poryadok[0: -2]
+    embed.add_field(name='Подрядок умений', value=poryadok, inline=True)
     await ctx.send(embed = embed)
-
 
 
 
