@@ -274,6 +274,8 @@ async def runes(ctx, *, args):
     embed.add_field(name='Адаптивные руны', value=rune_add1+'\n'+rune_add2+'\n'+rune_add3)
     embed.set_footer(text='LeagueOfBots',icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     embed.set_author(icon_url=ctx.message.author.avatar_url, name=ctx.message.author.name)
+    url_a = f'https://www.mobafire.com/images/champion/square/'+name_of_hero+'.png'
+    embed.set_thumbnail(url=url_a)
     r = requests.get(url, headers=header)
     bs = BeautifulSoup(r.text, 'html.parser')
     text = bs.find('div', attrs={'class': 'skill-block__top'})
