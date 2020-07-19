@@ -4,6 +4,7 @@ import asyncio
 import requests
 import os
 from bs4 import BeautifulSoup
+from discord import Colour
 
 
 all_champs_russia={
@@ -80,7 +81,7 @@ all_champs_russia={
 "ксинжао":"xin-zhao",
 "брэнд":"brand",
 "бренд":"brand",
-"грейвс":"graves",
+"грейвз":"graves",
 "леблан":"leblanc",
 "поппи":"poppy",
 "талон":"talon",
@@ -99,6 +100,7 @@ all_champs_russia={
 "тимо":"teemo",
 "зак":"zac",
 "камила":"camille",
+"камилла":"camille",
 "иллаой":"illaoi",
 "лисандра":"lissandra",
 "раксай":"reksai",
@@ -142,6 +144,14 @@ all_champs_russia={
 "мастерйи":"master-yi",
 "шако":"shaco",
 "ургот":"urgot",
+"афелий":"aphelios",
+"сенна":"senna",
+"пайк":"pyke",
+"сетт":"sett",
+"орн":"ornn",
+"кайн":"kayn",
+"каин":"kayn",
+"юми":"yuumi",
 }
 Bot = commands.Bot(command_prefix='!')
 all_runes_russia ={
@@ -218,7 +228,13 @@ async def on_member_join(member):
 async def on_ready():
     activity = discord.Game(name='!help - помощь по боту', )
     await Bot.change_presence(activity=activity)
-
+@Bot.event
+async def on_guild_join(guild):
+    await guild.create_role(name="Бот", color=Colour.from_rgb(255,255,228))
+    await guild.create_role(name="Топ", color=Colour.from_rgb(255,255,228))
+    await guild.create_role(name="Мид", color=Colour.from_rgb(255,255,228))
+    await guild.create_role(name="Саппорт", color=Colour.from_rgb(255,255,228))
+    await guild.create_role(name="Лесник", color=Colour.from_rgb(255,255,228))
 @Bot.command()
 @commands.has_permissions(administrator=True)
 async def say(ctx, *,args):
@@ -226,16 +242,38 @@ async def say(ctx, *,args):
     await ctx.message.delete()
     await ctx.send(args)
 @Bot.command(aliases=['помощь'])
-@commands.has_permissions(administrator=True)
 async def help(ctx):
     await ctx.message.delete()
     embed = discord.Embed(title='Команды', description='!(лайн) - выбрать роль в лиге\n'
                                                        '!руны {чемпион} - руны на чемпиона(имя чемпиона писать слитно)\n'
-                                                       '!ранк {ник призывателя} - ранк и мейн призывателя в ранкеде', color=0xf5f5f5)
+                                                       '!аватар {пинг пользователя, без пинга покажется ваш аватар}\n'
+                                                       '!ранк {ник призывателя} - ранк и мейн призывателя в ранкеде\n'
+                                                       'https://goo.su/leaguebot - добавь бота к себе!', color=0xf5f5f5)
+
     embed.set_footer(text= 'LeagueOfBots', icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     message = await ctx.send(embed = embed)
     await asyncio.sleep(10)
     await message.delete()
+@Bot.command(aliases=['ава', 'аватар'])
+async def ava(ctx,user: discord.User = None):
+    await ctx.message.delete()
+    if user == None:
+
+        ava = ctx.message.author.avatar_url
+        t = 'Аватарка призывателя: ' + '**'+ ctx.message.author.name+ '**'
+        em = discord.Embed(title=t , color=0xf5f5f5)
+        em.set_image(url=ava)
+        em.set_footer(text='LeagueOfBots',
+                         icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
+        await ctx.send(embed = em)
+    else:
+        ava = user.avatar_url
+        t = 'Аватарка призывателя: '+ '**'+ user.name+ '**'
+        em = discord.Embed(title=t , color=0xf5f5f5)
+        em.set_image(url=ava)
+        em.set_footer(text='LeagueOfBots',
+                         icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
+        await ctx.send(embed=em)
 @Bot.command(aliases=['руны'])
 async def runes(ctx, *, args):
     await ctx.message.delete()
@@ -333,67 +371,67 @@ async def rank(ctx, *,args):
 async def support(ctx,):
     await ctx.message.delete()
     member = ctx.message.author
-    if ctx.channel.name == "шестеренка":
 
-        if "саппорт" in [y.name.lower() for y in member.roles]:
 
-            role = discord.utils.get(ctx.guild.roles, name="Саппорт")
-            await member.remove_roles(role)
-        else:
-            role = discord.utils.get(ctx.guild.roles, name="Саппорт")
-            await member.add_roles(role)
+    if "саппорт" in [y.name.lower() for y in member.roles]:
+
+        role = discord.utils.get(ctx.guild.roles, name="Саппорт")
+        await member.remove_roles(role)
+    else:
+        role = discord.utils.get(ctx.guild.roles, name="Саппорт")
+        await member.add_roles(role)
 @Bot.command(aliases=['топер', 'топ'])
 async def top(ctx,):
     await ctx.message.delete()
     member = ctx.message.author
-    if ctx.channel.name == "шестеренка":
 
-        if "топ" in [y.name.lower() for y in member.roles]:
 
-            role = discord.utils.get(ctx.guild.roles, name="Топ")
-            await member.remove_roles(role)
-        else:
-            role = discord.utils.get(ctx.guild.roles, name="Топ")
-            await member.add_roles(role)
+    if "топ" in [y.name.lower() for y in member.roles]:
+
+        role = discord.utils.get(ctx.guild.roles, name="Топ")
+        await member.remove_roles(role)
+    else:
+        role = discord.utils.get(ctx.guild.roles, name="Топ")
+        await member.add_roles(role)
 @Bot.command(aliases=['ботер', 'бот'])
 async def bot(ctx,):
     await ctx.message.delete()
     member = ctx.message.author
-    if ctx.channel.name == "шестеренка":
 
-        if "бот" in [y.name.lower() for y in member.roles]:
 
-            role = discord.utils.get(ctx.guild.roles, name="Бот")
-            await member.remove_roles(role)
-        else:
-            role = discord.utils.get(ctx.guild.roles, name="Бот")
-            await member.add_roles(role)
+    if "бот" in [y.name.lower() for y in member.roles]:
+
+        role = discord.utils.get(ctx.guild.roles, name="Бот")
+        await member.remove_roles(role)
+    else:
+        role = discord.utils.get(ctx.guild.roles, name="Бот")
+        await member.add_roles(role)
 @Bot.command(aliases=['мидер', 'мид'])
 async def mid(ctx,):
     await ctx.message.delete()
     member = ctx.message.author
-    if ctx.channel.name == "шестеренка":
 
-        if "мид" in [y.name.lower() for y in member.roles]:
 
-            role = discord.utils.get(ctx.guild.roles, name="Мид")
-            await member.remove_roles(role)
-        else:
-            role = discord.utils.get(ctx.guild.roles, name="Мид")
-            await member.add_roles(role)
+    if "мид" in [y.name.lower() for y in member.roles]:
+
+        role = discord.utils.get(ctx.guild.roles, name="Мид")
+        await member.remove_roles(role)
+    else:
+        role = discord.utils.get(ctx.guild.roles, name="Мид")
+        await member.add_roles(role)
 @Bot.command(aliases=['лес', 'лесник'])
 async def jungle(ctx,):
     await ctx.message.delete()
     member = ctx.message.author
-    if ctx.channel.name == "шестеренка":
 
-        if "лесник" in [y.name.lower() for y in member.roles]:
 
-            role = discord.utils.get(ctx.guild.roles, name="Лесник")
-            await member.remove_roles(role)
-        else:
-            role = discord.utils.get(ctx.guild.roles, name="Лесник")
-            await member.add_roles(role)
+    if "лесник" in [y.name.lower() for y in member.roles]:
+
+        role = discord.utils.get(ctx.guild.roles, name="Лесник")
+        await member.remove_roles(role)
+    else:
+        role = discord.utils.get(ctx.guild.roles, name="Лесник")
+        await member.add_roles(role)
 @Bot.command(aliases=['удалить'])
 @commands.has_permissions(administrator=True)
 async def clear(ctx, amount: int = None):
