@@ -3,8 +3,11 @@ from discord.ext import commands
 import asyncio
 import requests
 import os
+
 from bs4 import BeautifulSoup
 from discord import Colour
+import cassiopeia as cass
+import datetime
 
 
 all_champs_russia={
@@ -445,6 +448,42 @@ async def clear(ctx, amount: int = None):
         emb.set_footer(text='LeagueOfBots',
                          icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
         await ctx.send(embed=emb, delete_after=10)
+@Bot.command(aliases=['лайв', 'лаив'])
+async def live(ctx, name: str = None):
+    if name == None:
+        await ctx.send('Введите никнейм призывателя')
+        await ctx.message.delete()
+    else:
+        await ctx.message.delete()
+        mes = await ctx.send('Ожидание может занять до 1 минуты, т.к. сервера перегружены')
+        await asyncio.sleep(4)
+        await mes.delete()
+        key1 = os.environ.get('RIOT')
+        cass.set_riot_api_key(key1)
+        cass.set_default_region("RU")
+        summoner = cass.get_summoner(name=name)
+        match = cass.get_current_match(summoner)
+        rt = summoner.current_match.red_team.participants
+        rteam = ""
+        bteam = ""
+        for x in rt:
+            rteam = rteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name
+
+        bt = summoner.current_match.blue_team.participants
+        for x in bt:
+            bteam = bteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name
+
+
+        mode = match.mode.name
+        ava = summoner.profile_icon.url
+        t = 'Лайв игра: ' + name
+        em = discord.Embed(title=t, color=0xf5f5f5)
+        em.add_field(name = 'Синяя команда:',value=bteam, inline=True)
+        em.add_field(name = 'Красная команда:',value=rteam, inline=True)
+        em.set_footer(text=str(mode), icon_url=ava)
+        await ctx.send(embed = em)
+
+
 
 
 
