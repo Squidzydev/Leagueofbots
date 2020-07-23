@@ -478,11 +478,12 @@ async def live(ctx, name: str = None):
         rteam = ""
         bteam = ""
         for x in rt:
-            rteam = rteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name
+        for x in rt:
+            rteam = rteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name + ' : '+str(x.summoner.league_entries[0].tier)+str(x.summoner.league_entries[0].division)
 
         bt = summoner.current_match.blue_team.participants
         for x in bt:
-            bteam = bteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name
+            bteam = bteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name + ' : '+str(x.summoner.league_entries[0].tier)+str(x.summoner.league_entries[0].division)
 
 
         mode = match.map.name
