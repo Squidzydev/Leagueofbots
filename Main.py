@@ -469,7 +469,7 @@ async def live(ctx, name: str = None):
         mes = await ctx.send('Ожидание может занять до 1 минуты, т.к. сервера перегружены')
         await asyncio.sleep(4)
         await mes.delete()
-        key = os.environ.get('RIOT')
+        key =os.environ.get('RIOT')
         cass.set_riot_api_key(key)
         cass.set_default_region("RU")
         summoner = cass.get_summoner(name=name)
@@ -477,14 +477,38 @@ async def live(ctx, name: str = None):
         rt = summoner.current_match.red_team.participants
         rteam = ""
         bteam = ""
+        tier = ''
+        division = ''
         for x in rt:
-            rteam = rteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name + '\n Ранг: '+str(x.summoner.league_entries[0].tier)+str(x.summoner.league_entries[0].division)
+            try:
+                tier = str(x.summoner.league_entries[0].tier)
+                division = str(x.summoner.league_entries[0].division)
+
+            except:
+                pass
+            if tier and division is not '':
+                rteam = rteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name + '\n Ранг: '+tier +' '+division
+            else:
+                rteam = rteam + '\n' + '(' + str(x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + '\n Нет ранга '
+
 
         bt = summoner.current_match.blue_team.participants
         for x in bt:
-            bteam = bteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name + '\n Ранг: '+str(x.summoner.league_entries[0].tier)+str(x.summoner.league_entries[0].division)
+            try:
+                tier = str(x.summoner.league_entries[0].tier)
+                division = str(x.summoner.league_entries[0].division)
+
+            except:
+                pass
+            if tier and division is not None:
+                bteam = bteam + '\n' + '(' + str(
+                    x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + '\n Ранг: ' + tier + ' ' + division
+            else:
+                bteam = bteam + '\n' + '(' + str(
+                    x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + '\n Нет ранга '
 
 
+        
         mode = match.map.name
         ava = summoner.profile_icon.url
         t = 'Лайв игра: ' + name
@@ -499,6 +523,6 @@ async def live(ctx, name: str = None):
 
 
 
-key = os.environ.get('TOKEN')
 
+key =os.environ.get('TOKEN')
 Bot.run(key)
