@@ -251,7 +251,18 @@ async def help(ctx):
                                                        '!руны {чемпион} - руны на чемпиона(имя чемпиона писать слитно)\n'
                                                        '!аватар {пинг пользователя, без пинга покажется ваш аватар}\n'
                                                        '!ранк {ник призывателя} - ранк и мейн призывателя в ранкеде\n'
+                                                       '!live {ник призывателя} - статистика матча\n'
+                                                       '!changelog - изменения бота\n'
                                                        'https://goo.su/leaguebot - добавь бота к себе!', color=0xf5f5f5)
+
+    embed.set_footer(text= 'LeagueOfBots', icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
+    message = await ctx.send(embed = embed)
+    await asyncio.sleep(10)
+    await message.delete()
+@Bot.command(aliases=['изменения'])
+async def changelog(ctx):
+    await ctx.message.delete()
+    embed = discord.Embed(title='Изменения', description='$Добавлена команда: !live - помотреть матч призывателя \n$Теперь бота можно добавить к вам в дикорд канал - https://goo.su/leaguebot', color=0xf5f5f5)
 
     embed.set_footer(text= 'LeagueOfBots', icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     message = await ctx.send(embed = embed)
