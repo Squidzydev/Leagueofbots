@@ -478,7 +478,6 @@ async def live(ctx, name: str = None):
         rteam = ""
         bteam = ""
         for x in rt:
-        for x in rt:
             rteam = rteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name + '\n Ранг: '+str(x.summoner.league_entries[0].tier)+str(x.summoner.league_entries[0].division)
 
         bt = summoner.current_match.blue_team.participants
