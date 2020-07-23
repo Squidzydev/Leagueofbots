@@ -458,8 +458,8 @@ async def live(ctx, name: str = None):
         mes = await ctx.send('Ожидание может занять до 1 минуты, т.к. сервера перегружены')
         await asyncio.sleep(4)
         await mes.delete()
-        key1 = os.environ.get('RIOT')
-        cass.set_riot_api_key(key1)
+        key = os.environ.get('RIOT')
+        cass.set_riot_api_key(key)
         cass.set_default_region("RU")
         summoner = cass.get_summoner(name=name)
         match = cass.get_current_match(summoner)
@@ -474,7 +474,7 @@ async def live(ctx, name: str = None):
             bteam = bteam+'\n'+'('+str(x.summoner.level)+')'+x.summoner.name + ' - '+x.champion.name
 
 
-        mode = match.mode.name
+        mode = match.map.name
         ava = summoner.profile_icon.url
         t = 'Лайв игра: ' + name
         em = discord.Embed(title=t, color=0xf5f5f5)
