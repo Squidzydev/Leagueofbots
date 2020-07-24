@@ -505,10 +505,10 @@ async def live(ctx, name: str = None):
         cm = ''
         division = ''
         masters = {
-            'Mastery Level: 7':'<:Level_7:736291517676912660>',
-            'Mastery Level: 6':'<:Level_6:736291517592764426>',
-            'Mastery Level: 5':'<:Level_5:736291517416603658>',
-            'Mastery Level: 4':'<:Level_4:736291517068738631>',
+            '7':'<:Level_7:736291517676912660>',
+            '6':'<:Level_6:736291517592764426>',
+            '5':'<:Level_5:736291517416603658>',
+            '4':'<:Level_4:736291517068738631>',
         }
         tiers = {
             'Iron': '<:Iron:736282364874850386>',
