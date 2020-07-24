@@ -521,7 +521,7 @@ async def live(ctx, name: str = None):
                 tier = tiers[tier]
             except:
                 pass
-            if tier and division is not '':
+            if tier is not '':
 
                 rteam = rteam + '\n' + '(' + str(x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name+' '+tier
             else:
@@ -536,7 +536,7 @@ async def live(ctx, name: str = None):
 
             except:
                 pass
-            if tier and division is not None:
+            if tier is not '':
                 bteam = bteam + '\n' + '(' + str(
                     x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name +' '+tier
             else:
