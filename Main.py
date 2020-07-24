@@ -503,7 +503,7 @@ async def live(ctx, name: str = None):
         bteam = ""
         tier = ''
         cm = ''
-        division = ''
+
         masters = {
             '7':'<:Level_7:736291517676912660>',
             '6':'<:Level_6:736291517592764426>',
@@ -524,10 +524,15 @@ async def live(ctx, name: str = None):
         }
         for x in rt:
             try:
+
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
                 cmm = cass.get_champion_mastery(summoner, x.champion, region='RU')
+                print(str(cmm.level))
                 cm = masters[str(cmm.level)]
+
+
+
             except:
                 pass
             if tier is not '':
@@ -544,13 +549,17 @@ async def live(ctx, name: str = None):
                     rteam = rteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
 
+            cm =''
+
         bt = summoner.current_match.blue_team.participants
         for x in bt:
             try:
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
                 cmm = cass.get_champion_mastery(summoner, x.champion, region='RU')
+                print(str(cmm.level))
                 cm = masters[str(cmm.level)]
+
             except:
                 pass
             if tier is not '':
@@ -568,6 +577,7 @@ async def live(ctx, name: str = None):
                     bteam = bteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
 
+            cm = ''
 
         mode = match.map.name
         ava = summoner.profile_icon.url
