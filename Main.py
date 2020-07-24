@@ -503,15 +503,27 @@ async def live(ctx, name: str = None):
         bteam = ""
         tier = ''
         division = ''
+        tiers = {
+            'Iron': '<:Iron:736282364874850386>',
+            'Bronze':'<:Bronze:736282364984164503>',
+            'Silver': '<:Silver:736282365177102436>',
+            'Gold': '<:Gold:736282364866723861>',
+            'Platinum': '<:Platinum:736282365252337724>',
+            'Diamond':'<:Diamond:736282364795420773>',
+            'Master': '<:Master:736282365202006131>',
+            'Grandmaster': '<:Grandmaster:736282364849684531>',
+            'Challenger': '<:Challenger:736282365504127047>',
+
+        }
         for x in rt:
             try:
                 tier = str(x.summoner.league_entries[0].tier)
-                division = str(x.summoner.league_entries[0].division)
-
+                tier = tiers[tier]
             except:
                 pass
             if tier and division is not '':
-                rteam = rteam + '\n' + '(' + str(x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name+' :'+ tier +':'
+
+                rteam = rteam + '\n' + '(' + str(x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name+' '+tier
             else:
                 rteam = rteam + '\n' + '(' + str(
                     x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + '\n Нет ранга '
@@ -520,13 +532,13 @@ async def live(ctx, name: str = None):
         for x in bt:
             try:
                 tier = str(x.summoner.league_entries[0].tier)
-                division = str(x.summoner.league_entries[0].division)
+                tier = tiers[tier]
 
             except:
                 pass
             if tier and division is not None:
                 bteam = bteam + '\n' + '(' + str(
-                    x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + ' :' + tier + ':'
+                    x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name +' '+tier
             else:
                 bteam = bteam + '\n' + '(' + str(
                     x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + '\n Нет ранга '
