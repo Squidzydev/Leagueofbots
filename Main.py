@@ -511,7 +511,7 @@ async def live(ctx, name: str = None):
             except:
                 pass
             if tier and division is not '':
-                rteam = rteam + '\n' + '(' + str(x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name+':'+ tier +':'
+                rteam = rteam + '\n' + '(' + str(x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name+' :'+ tier +':'
             else:
                 rteam = rteam + '\n' + '(' + str(
                     x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + '\n Нет ранга '
@@ -526,7 +526,7 @@ async def live(ctx, name: str = None):
                 pass
             if tier and division is not None:
                 bteam = bteam + '\n' + '(' + str(
-                    x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + ':' + tier + ':'
+                    x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + ' :' + tier + ':'
             else:
                 bteam = bteam + '\n' + '(' + str(
                     x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + '\n Нет ранга '
