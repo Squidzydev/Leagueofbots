@@ -527,7 +527,7 @@ async def live(ctx, name: str = None):
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
                 cmm = cass.get_champion_mastery(summoner, x.champion, region='RU')
-                cm = masters[cmm.level]
+                cm = masters[str(cmm.level)]
             except:
                 pass
             if tier is not '':
@@ -550,7 +550,7 @@ async def live(ctx, name: str = None):
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
                 cmm = cass.get_champion_mastery(summoner, x.champion, region='RU')
-                cm = masters[cmm.level]
+                cm = masters[str(cmm.level)]
             except:
                 pass
             if tier is not '':
