@@ -527,9 +527,7 @@ async def live(ctx, name: str = None):
 
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
-                cmm = cass.get_champion_mastery(summoner, x.champion, region='RU')
-                print(str(cmm.level))
-                cm = masters[str(cmm.level)]
+
 
 
 
@@ -549,35 +547,32 @@ async def live(ctx, name: str = None):
                     rteam = rteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
 
-            cm =''
+            
 
         bt = summoner.current_match.blue_team.participants
         for x in bt:
             try:
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
-                cmm = cass.get_champion_mastery(summoner, x.champion, region='RU')
-                print(str(cmm.level))
-                cm = masters[str(cmm.level)]
 
             except:
                 pass
             if tier is not '':
                 if cm is not '':
                     bteam = bteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' +cm+ x.champion.name +' '+tier
+                        x.summoner.level) + ')' + x.summoner.name + ' - '+ x.champion.name +' '+tier
                 else:
                     bteam = bteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + ' ' + tier
             else:
                 if cm is not '':
                     bteam = bteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' +cm+ x.champion.name
+                        x.summoner.level) + ')' + x.summoner.name + ' - '+ x.champion.name
                 else:
                     bteam = bteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
 
-            cm = ''
+            
 
         mode = match.map.name
         ava = summoner.profile_icon.url
