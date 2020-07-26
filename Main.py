@@ -369,7 +369,7 @@ async def summoner(ctx, name: str = None):
     key = os.environ.get('RIOT')
     cass.set_riot_api_key(key)
     lvl =''
-    rank = ''
+    rank = 'Нет ранга'
     mainer = ''
     win1 = ''
     win2 = ''
