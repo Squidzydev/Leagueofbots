@@ -505,18 +505,18 @@ async def live(ctx, name: str = None):
         cm = ''
 
         masters = {
-            '7':'<:Level_7:736291517676912660>',
-            '6':'<:Level_6:736291517592764426>',
-            '5':'<:Level_5:736291517416603658>',
-            '4':'<:Level_4:736291517068738631>',
+            '7': '<:Level_7:736291517676912660>',
+            '6': '<:Level_6:736291517592764426>',
+            '5': '<:Level_5:736291517416603658>',
+            '4': '<:Level_4:736291517068738631>',
         }
         tiers = {
             'Iron': '<:Iron:736282364874850386>',
-            'Bronze':'<:Bronze:736282364984164503>',
+            'Bronze': '<:Bronze:736282364984164503>',
             'Silver': '<:Silver:736282365177102436>',
             'Gold': '<:Gold:736282364866723861>',
             'Platinum': '<:Platinum:736282365252337724>',
-            'Diamond':'<:Diamond:736282364795420773>',
+            'Diamond': '<:Diamond:736282364795420773>',
             'Master': '<:Master:736282365202006131>',
             'Grandmaster': '<:Grandmaster:736282364849684531>',
             'Challenger': '<:Challenger:736282365504127047>',
@@ -527,7 +527,8 @@ async def live(ctx, name: str = None):
 
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
-
+                cmm = cass.get_champion_mastery(x.summoner, x.champion, region='RU')
+                cm = masters[str(cmm.level)]
 
 
 
@@ -535,44 +536,42 @@ async def live(ctx, name: str = None):
                 pass
             if tier is not '':
                 if cm is not '':
-                    rteam = rteam + '\n' + '(' + str(x.summoner.level) + ')' + x.summoner.name + ' - ' +x.champion.name+' '+tier
+                    rteam = rteam + '\n' + '(' + str(
+                        x.summoner.level) + ')' + x.summoner.name + ' - ' + cm+x.champion.name + ' ' + tier
                 else:
                     rteam = rteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + ' ' + tier
             else:
                 if cm is not '':
                     rteam = rteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
+                        x.summoner.level) + ')' + x.summoner.name + ' - ' +cm+ x.champion.name
                 else:
                     rteam = rteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
-
-            
 
         bt = summoner.current_match.blue_team.participants
         for x in bt:
             try:
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
-
+                cmm = cass.get_champion_mastery(x.summoner, x.champion, region='RU')
+                cm = masters[str(cmm.level)]
             except:
                 pass
             if tier is not '':
                 if cm is not '':
                     bteam = bteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - '+ x.champion.name +' '+tier
+                        x.summoner.level) + ')' + x.summoner.name + ' - ' +cm+ x.champion.name + ' ' + tier
                 else:
                     bteam = bteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + ' ' + tier
             else:
                 if cm is not '':
                     bteam = bteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - '+ x.champion.name
+                        x.summoner.level) + ')' + x.summoner.name + ' - ' +cm+ x.champion.name
                 else:
                     bteam = bteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
-
-            
 
         mode = match.map.name
         ava = summoner.profile_icon.url
