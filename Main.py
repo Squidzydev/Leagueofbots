@@ -426,7 +426,7 @@ async def summoner(ctx, name: str = None):
     embed.add_field(name ='**Ранг:**',value=rank, inline=True)
     embed.add_field(name='**Лвл:**', value=lvl, inline=True)
     embed.add_field(name='**Мейн:**', value=mainer, inline=True)
-    embed.add_field(name='**Последние игры:**', value=wins, inline=True)
+    embed.add_field(name='**Последние игры:**', value=win1, inline=True)
     embed.set_footer(text='LeagueOfBots',
                      icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     await ctx.send(embed=embed)
