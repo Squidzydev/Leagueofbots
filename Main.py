@@ -380,9 +380,9 @@ async def summoner(ctx, name: str = None):
         mainer = str(summoner.champion_masteries[0].champion.name)
     t = 'Информация о призывателе: '+name
     embed = discord.Embed(title=t, color=0xf5f5f5)
-    embed.add_field(name ='Ранг: ',value=rank, inline=True)
-    embed.add_field(name='Лвл ', value=lvl, inline=True)
-    embed.add_field(name='Мейн ', value=mainer, inline=True)
+    embed.add_field(name ='**Ранг:**',value=rank, inline=True)
+    embed.add_field(name='**Лвл:**', value=lvl, inline=True)
+    embed.add_field(name='**Мейн:**', value=mainer, inline=True)
     embed.set_footer(text='LeagueOfBots',
                      icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     await ctx.send(embed=embed)
