@@ -258,7 +258,7 @@ async def help(ctx):
     embed = discord.Embed(title='Команды', description='!(лайн) - выбрать роль в лиге\n'
                                                        '!руны {чемпион} - руны на чемпиона(имя чемпиона писать слитно)\n'
                                                        '!аватар {пинг пользователя, без пинга покажется ваш аватар}\n'
-                                                       '!ранк {ник призывателя} - ранк и мейн призывателя в ранкеде\n'
+                                                       '!summoner {ник призывателя} - ранк, уровень и мейн призывателя в ранкеде\n'
                                                        '!live {ник призывателя} - статистика матча\n'
                                                        '!changelog - изменения бота\n'
                                                        'https://goo.su/leaguebot - добавь бота к себе!', color=0xf5f5f5)
@@ -273,8 +273,11 @@ async def help(ctx):
 @Bot.command(aliases=['изменения'])
 async def changelog(ctx):
     await ctx.message.delete()
-    embed = discord.Embed(title='Изменения - 1.12',
-                          description='$Добавлена команда: !live - помотреть матч призывателя \n$Теперь бота можно добавить к вам в дискорд канал - https://goo.su/leaguebot',
+    embed = discord.Embed(title='Изменения бота',
+                          description='**1.29**\n',
+                                      '$Добавлена команда: !live - помотреть матч призывателя \n$Теперь бота можно добавить к вам в дискорд канал - https://goo.su/leaguebot\n',
+                                      '**1.3**\n',
+                                      '$!ранг -> !summoner(Команда изменена)',
                           color=0xf5f5f5)
 
     embed.set_footer(text='LeagueOfBots',
