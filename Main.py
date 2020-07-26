@@ -371,6 +371,9 @@ async def summoner(ctx, name: str = None):
     lvl =''
     rank = ''
     mainer = ''
+    win1 = ''
+    win2 = ''
+    win3 = ''
     if name == None:
         await ctx.send('Введите ник призывателя')
     else:
@@ -378,11 +381,49 @@ async def summoner(ctx, name: str = None):
         lvl = str(summoner.level)
         rank = str(summoner.league_entries[0].tier) + ' ' + str(summoner.league_entries[0].division)
         mainer = str(summoner.champion_masteries[0].champion.name)
+        for x in cass.get_match(summoner.match_history[0].id, region='RU').red_team.participants:
+            if x.summoner.name == summoner.name:
+                if cass.get_match(summoner.match_history[0].id, region='RU').red_team.win == False:
+                    win1 = "Луз"
+                else:
+                    win1 = 'Вин'
+        for x in cass.get_match(summoner.match_history[0].id, region='RU').blue_team.participants:
+            if x.summoner.name == summoner.name:
+                if cass.get_match(summoner.match_history[0].id, region='RU').blue_team.win == False:
+                    win1 = "Луз"
+                else:
+                    win1 = 'Вин'
+        for x in cass.get_match(summoner.match_history[1].id, region='RU').red_team.participants:
+            if x.summoner.name == summoner.name:
+                if cass.get_match(summoner.match_history[1].id, region='RU').red_team.win == False:
+                    win2 = "Луз"
+                else:
+                    win2 = 'Вин'
+        for x in cass.get_match(summoner.match_history[1].id, region='RU').blue_team.participants:
+            if x.summoner.name == summoner.name:
+                if cass.get_match(summoner.match_history[1].id, region='RU').blue_team.win == False:
+                    win2 = "Луз"
+                else:
+                    win2 = 'Вин'
+        for x in cass.get_match(summoner.match_history[2].id, region='RU').red_team.participants:
+            if x.summoner.name == summoner.name:
+                if cass.get_match(summoner.match_history[2].id, region='RU').red_team.win == False:
+                    win3 = "Луз"
+                else:
+                    win3 = 'Вин'
+        for x in cass.get_match(summoner.match_history[2].id, region='RU').blue_team.participants:
+            if x.summoner.name == summoner.name:
+                if cass.get_match(summoner.match_history[2].id, region='RU').blue_team.win == False:
+                    win3 = "Луз"
+                else:
+                    win3 = 'Вин'
+    wins = win1 +'\n'+win2+'\n'+win3
     t = 'Информация о призывателе: '+name
     embed = discord.Embed(title=t, color=0xf5f5f5)
     embed.add_field(name ='**Ранг:**',value=rank, inline=True)
     embed.add_field(name='**Лвл:**', value=lvl, inline=True)
     embed.add_field(name='**Мейн:**', value=mainer, inline=True)
+    embed.add_field(name='**Последние игры:**', value=wins, inline=True)
     embed.set_footer(text='LeagueOfBots',
                      icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     await ctx.send(embed=embed)
