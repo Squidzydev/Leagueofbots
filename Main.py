@@ -360,7 +360,7 @@ async def runes(ctx, *, args):
     await ctx.send(embed=embed)
 
 
-@Bot.command(aliases=['rang', 'ранк', 'ранг'])
+@Bot.command(aliases=['информация', 'саммонер', 'призыватель'])
 async def summoner(ctx, name: str = None):
     await ctx.message.delete()
     key = os.environ.get('RIOT')
