@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 import requests
 import os
+import InfoAboutSummoner as ias
 
 from bs4 import BeautifulSoup
 from discord import Colour
@@ -361,38 +362,19 @@ async def runes(ctx, *, args):
 
 
 @Bot.command(aliases=['rang', 'ранк', 'ранг'])
-async def rank(ctx, *, args):
-    name = ''
-    await ctx.message.delete()
-    for x in args:
-        name = args + '+'
-    name = name[0:-1]
-    url = "https://www.leagueofgraphs.com/ru/summoner/ru/" + name + "#championsData-all-queues"
-    print(url)
-    header = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36',
-        'upgrade-insecure-requests': '1',
-        'cookie': 'mos_id=CllGxlx+PS20pAxcIuDnAgA=; session-cookie=158b36ec3ea4f5484054ad1fd21407333c874ef0fa4f0c8e34387efd5464a1e9500e2277b0367d71a273e5b46fa0869a; NSC_WBS-QUBG-jo-nptsv-WT-443=ffffffff0951e23245525d5f4f58455e445a4a423660; rheftjdd=rheftjddVal; _ym_uid=1552395093355938562; _ym_d=1552395093; _ym_isad=2',
-        'championsData': 'all-queues'
-    }
-    r = requests.get(url, headers=header)
-    bs = BeautifulSoup(r.text, 'html.parser')
-
-    rank = bs.find('div', attrs={'class': 'leagueTier'})
-
-    rank1 = rank.text
-    data = {
-        'championsData': 'all-queues'
-    }
-    url = 'https://www.leagueofgraphs.com/ru/summoner/champions/ru/' + name + '#championsData-all-queues'
-    print(url)
-    r = requests.get(url, headers=header, data=data)
-    bs = BeautifulSoup(r.text, 'html.parser')
-    main = bs.find('span', attrs={'class': 'name'})
-    t = 'Инфо о игроке ' + name
-    main = '```css\n' + 'Мейн: ' + main.text + '```'
-    ranke = '```css' + rank1.replace(' ', '') + '```'
-    embed = discord.Embed(title=t, description=ranke + '' + main, color=0xf5f5f5)
+async def summoner(ctx, name: str = None):
+    key = os.environ.get('RIOT')
+    cass.set_riot_api_key(key)
+    InfoSummoner = ias.infoSummoner()
+    if name == None:
+        await ctx.send('Введите ник призывателя')
+    else:
+        InfoSummoner.infoaboutsummoner(name, key)
+    t = 'Информация о призывателе: '+name
+    embed = discord.Embed(title=t, color=0xf5f5f5)
+    embed.add_field(name ='Ранг: ',value=InfoSummoner.rank, inline=True)
+    embed.add_field(name='Лвл ', value=InfoSummoner.lvl, inline=True)
+    embed.add_field(name='Мейн ', value=InfoSummoner.mainer, inline=True)
     embed.set_footer(text='LeagueOfBots',
                      icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     await ctx.send(embed=embed)
@@ -501,8 +483,6 @@ async def live(ctx, name: str = None):
         rt = summoner.current_match.red_team.participants
         rteam = ""
         bteam = ""
-        tier = ''
-        cm = ''
 
         masters = {
             '7': '<:Level_7:736291517676912660>',
@@ -536,7 +516,7 @@ async def live(ctx, name: str = None):
 
             except:
                 pass
-            
+
             rteam = rteam + '\n' + '(' + str(
                 x.summoner.level) + ')' + x.summoner.name + ' - ' + cm + x.champion.name + ' ' + tier
 
