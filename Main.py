@@ -550,6 +550,7 @@ async def live(ctx, name: str = None):
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
 
         bt = summoner.current_match.blue_team.participants
+        cm = ''
         for x in bt:
             try:
                 tier = str(x.summoner.league_entries[0].tier)
