@@ -548,6 +548,7 @@ async def live(ctx, name: str = None):
                 else:
                     rteam = rteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
+            cm = ''
 
         bt = summoner.current_match.blue_team.participants
         cm = ''
@@ -573,6 +574,7 @@ async def live(ctx, name: str = None):
                 else:
                     bteam = bteam + '\n' + '(' + str(
                         x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
+            cm = ''     
 
         mode = match.map.name
         ava = summoner.profile_icon.url
