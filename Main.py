@@ -154,7 +154,6 @@ all_champs_russia = {
     "кайн": "kayn",
     "каин": "kayn",
     "юми": "yuumi",
-    "лиллия": "lillia",
 }
 Bot = commands.Bot(command_prefix='!')
 all_runes_russia = {
@@ -524,6 +523,8 @@ async def live(ctx, name: str = None):
 
         }
         for x in rt:
+            cm = ''
+            tier = ''
             try:
 
                 tier = str(x.summoner.league_entries[0].tier)
@@ -535,25 +536,14 @@ async def live(ctx, name: str = None):
 
             except:
                 pass
-            if tier is not '':
-                if cm is not '':
-                    rteam = rteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' + cm+x.champion.name + ' ' + tier
-                else:
-                    rteam = rteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + ' ' + tier
-            else:
-                if cm is not '':
-                    rteam = rteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' +cm+ x.champion.name
-                else:
-                    rteam = rteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
-            cm = ''
+            
+            rteam = rteam + '\n' + '(' + str(
+                x.summoner.level) + ')' + x.summoner.name + ' - ' + cm + x.champion.name + ' ' + tier
 
         bt = summoner.current_match.blue_team.participants
-        cm = ''
         for x in bt:
+            cm = ''
+            tier = ''
             try:
                 tier = str(x.summoner.league_entries[0].tier)
                 tier = tiers[tier]
@@ -561,21 +551,8 @@ async def live(ctx, name: str = None):
                 cm = masters[str(cmm.level)]
             except:
                 pass
-            if tier is not '':
-                if cm is not '':
-                    bteam = bteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' +cm+ x.champion.name + ' ' + tier
-                else:
-                    bteam = bteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name + ' ' + tier
-            else:
-                if cm is not '':
-                    bteam = bteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' +cm+ x.champion.name
-                else:
-                    bteam = bteam + '\n' + '(' + str(
-                        x.summoner.level) + ')' + x.summoner.name + ' - ' + x.champion.name
-            cm = ''     
+            bteam = bteam + '\n' + '(' + str(
+                x.summoner.level) + ')' + x.summoner.name + ' - ' + cm + x.champion.name + ' ' + tier
 
         mode = match.map.name
         ava = summoner.profile_icon.url
