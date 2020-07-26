@@ -274,9 +274,9 @@ async def help(ctx):
 async def changelog(ctx):
     await ctx.message.delete()
     embed = discord.Embed(title='Изменения бота',
-                          description='**1.29**\n',
-                                      '$Добавлена команда: !live - помотреть матч призывателя \n$Теперь бота можно добавить к вам в дискорд канал - https://goo.su/leaguebot\n',
-                                      '**1.3**\n',
+                          description='**1.29**\n'
+                                      '$Добавлена команда: !live - помотреть матч призывателя \n$Теперь бота можно добавить к вам в дискорд канал - https://goo.su/leaguebot\n'
+                                      '**1.3**\n'
                                       '$!ранг -> !summoner(Команда изменена)',
                           color=0xf5f5f5)
 
