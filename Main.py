@@ -379,7 +379,10 @@ async def summoner(ctx, name: str = None):
     else:
         summoner = cass.get_summoner(region='RU', name=name)
         lvl = str(summoner.level)
-        rank = str(summoner.league_entries[0].tier) + ' ' + str(summoner.league_entries[0].division)
+        try:
+            rank = str(summoner.league_entries[0].tier) + ' ' + str(summoner.league_entries[0].division)
+        except:
+            pass
         mainer = str(summoner.champion_masteries[0].champion.name)
         for x in cass.get_match(summoner.match_history[0].id, region='RU').red_team.participants:
             if x.summoner.name == summoner.name:
