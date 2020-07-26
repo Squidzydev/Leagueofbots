@@ -3,7 +3,6 @@ from discord.ext import commands
 import asyncio
 import requests
 import os
-import InfoAboutSummoner as ias
 
 from bs4 import BeautifulSoup
 from discord import Colour
@@ -363,18 +362,24 @@ async def runes(ctx, *, args):
 
 @Bot.command(aliases=['rang', 'ранк', 'ранг'])
 async def summoner(ctx, name: str = None):
+    await ctx.message.delete()
     key = os.environ.get('RIOT')
     cass.set_riot_api_key(key)
-    InfoSummoner = ias.infoSummoner()
+    lvl =''
+    rank = ''
+    mainer = ''
     if name == None:
         await ctx.send('Введите ник призывателя')
     else:
-        InfoSummoner.infoaboutsummoner(name, key)
+        summoner = cass.get_summoner(region='RU', name=name)
+        lvl = str(summoner.level)
+        rank = str(summoner.league_entries[0].tier) + ' ' + str(summoner.league_entries[0].division)
+        mainer = str(summoner.champion_masteries[0].champion.name)
     t = 'Информация о призывателе: '+name
     embed = discord.Embed(title=t, color=0xf5f5f5)
-    embed.add_field(name ='Ранг: ',value=InfoSummoner.rank, inline=True)
-    embed.add_field(name='Лвл ', value=InfoSummoner.lvl, inline=True)
-    embed.add_field(name='Мейн ', value=InfoSummoner.mainer, inline=True)
+    embed.add_field(name ='Ранг: ',value=rank, inline=True)
+    embed.add_field(name='Лвл ', value=lvl, inline=True)
+    embed.add_field(name='Мейн ', value=mainer, inline=True)
     embed.set_footer(text='LeagueOfBots',
                      icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
     await ctx.send(embed=embed)
