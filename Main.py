@@ -154,6 +154,7 @@ all_champs_russia = {
     "кайн": "kayn",
     "каин": "kayn",
     "юми": "yuumi",
+    "лиллия": "lillia",
 }
 Bot = commands.Bot(command_prefix='!')
 all_runes_russia = {
