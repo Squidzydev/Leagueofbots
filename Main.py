@@ -374,6 +374,7 @@ async def summoner(ctx, name: str = None):
     win1 = ''
     win2 = ''
     win3 = ''
+    win4 = ''
     wins = ''
     if name == None:
         await ctx.send('Введите ник призывателя')
@@ -388,40 +389,46 @@ async def summoner(ctx, name: str = None):
         for x in cass.get_match(summoner.match_history[0].id, region='RU').red_team.participants:
             if x.summoner.name == summoner.name:
                 if cass.get_match(summoner.match_history[0].id, region='RU').red_team.win == False:
-                    win1 = "Поражение"
+                    win1 = "Поражение:red_circle:"
                 else:
-                    win1 = 'Победа'
+                    win1 = 'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[0].id, region='RU').blue_team.participants:
             if x.summoner.name == summoner.name:
                 if cass.get_match(summoner.match_history[0].id, region='RU').blue_team.win == False:
-                    win1 = "Поражение"
+                    win1 = "Поражение:red_circle:"
                 else:
-                    win1 = 'Победа'
+                    win1 = 'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[1].id, region='RU').red_team.participants:
             if x.summoner.name == summoner.name:
                 if cass.get_match(summoner.match_history[1].id, region='RU').red_team.win == False:
-                    win2 = "Поражение"
+                    win2 = "Поражение:red_circle:"
                 else:
-                    win2 = 'Победа'
+                    win2 = 'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[1].id, region='RU').blue_team.participants:
             if x.summoner.name == summoner.name:
                 if cass.get_match(summoner.match_history[1].id, region='RU').blue_team.win == False:
-                    win2 = "Поражение"
+                    win2 = "Поражение:red_circle:"
                 else:
-                    win2 = 'Победа'
+                    win2 = 'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[2].id, region='RU').red_team.participants:
             if x.summoner.name == summoner.name:
                 if cass.get_match(summoner.match_history[2].id, region='RU').red_team.win == False:
-                    win3 = "Поражение"
+                    win3 = "Поражение:red_circle:"
                 else:
-                    win3 = 'Победа'
+                    win3 = 'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[2].id, region='RU').blue_team.participants:
             if x.summoner.name == summoner.name:
                 if cass.get_match(summoner.match_history[2].id, region='RU').blue_team.win == False:
-                    win3 = "Поражение"
+                    win3 = "Поражение:red_circle:"
                 else:
-                    win3 = 'Победа'
-    wins = win1 +'\n'+win2+'\n'+win3
+                    win3 = 'Победа:green_circle:'
+        for x in cass.get_match(summoner.match_history[3].id, region='RU').blue_team.participants:
+            if x.summoner.name == summoner.name:
+                if cass.get_match(summoner.match_history[3].id, region='RU').blue_team.win == False:
+                    win4 = "Поражение:red_circle:"
+                else:
+                    win4 = 'Победа:green_circle:'
+    wins = win1 +'\n'+win2+'\n'+win3+'\n'+win4
     t = 'Информация о призывателе: '+name
     embed = discord.Embed(title=t, color=0xf5f5f5)
     embed.add_field(name ='**Ранг:**',value=rank, inline=True)
