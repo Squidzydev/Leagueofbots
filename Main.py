@@ -375,6 +375,10 @@ async def summoner(ctx, name: str = None):
     win2 = ''
     win3 = ''
     win4 = ''
+    ch1 = ''
+    ch2 = ''
+    ch3 = ''
+    ch4 = ''
     wins = ''
     if name == None:
         await ctx.send('Введите ник призывателя')
@@ -388,46 +392,60 @@ async def summoner(ctx, name: str = None):
         mainer = str(summoner.champion_masteries[0].champion.name)
         for x in cass.get_match(summoner.match_history[0].id, region='RU').red_team.participants:
             if x.summoner.name == summoner.name:
+                ch1 = '('+x.champion.name+')'
                 if cass.get_match(summoner.match_history[0].id, region='RU').red_team.win == False:
-                    win1 = "Поражение:red_circle:"
+                    win1 = ch1+"Поражение:red_circle:"
                 else:
-                    win1 = 'Победа:green_circle:'
+                    win1 = ch1+'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[0].id, region='RU').blue_team.participants:
             if x.summoner.name == summoner.name:
+                ch1 = '(' + x.champion.name + ')'
                 if cass.get_match(summoner.match_history[0].id, region='RU').blue_team.win == False:
-                    win1 = "Поражение:red_circle:"
+                    win1 = ch1+"Поражение:red_circle:"
                 else:
-                    win1 = 'Победа:green_circle:'
+                    win1 = ch1+'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[1].id, region='RU').red_team.participants:
             if x.summoner.name == summoner.name:
+                ch2 = '(' + x.champion.name + ')'
                 if cass.get_match(summoner.match_history[1].id, region='RU').red_team.win == False:
-                    win2 = "Поражение:red_circle:"
+                    win2 = ch2+"Поражение:red_circle:"
                 else:
-                    win2 = 'Победа:green_circle:'
+                    win2 = ch2+'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[1].id, region='RU').blue_team.participants:
             if x.summoner.name == summoner.name:
+                ch2 = '(' + x.champion.name + ')'
                 if cass.get_match(summoner.match_history[1].id, region='RU').blue_team.win == False:
-                    win2 = "Поражение:red_circle:"
+                    win2 = ch2+"Поражение:red_circle:"
                 else:
-                    win2 = 'Победа:green_circle:'
+                    win2 = ch2+'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[2].id, region='RU').red_team.participants:
             if x.summoner.name == summoner.name:
+                ch3 = '(' + x.champion.name + ')'
                 if cass.get_match(summoner.match_history[2].id, region='RU').red_team.win == False:
-                    win3 = "Поражение:red_circle:"
+                    win3 = ch3+"Поражение:red_circle:"
                 else:
-                    win3 = 'Победа:green_circle:'
+                    win3 = ch3+'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[2].id, region='RU').blue_team.participants:
             if x.summoner.name == summoner.name:
+                ch3 = '(' + x.champion.name + ')'
                 if cass.get_match(summoner.match_history[2].id, region='RU').blue_team.win == False:
-                    win3 = "Поражение:red_circle:"
+                    win3 = ch3+"Поражение:red_circle:"
                 else:
-                    win3 = 'Победа:green_circle:'
+                    win3 = ch3+'Победа:green_circle:'
+        for x in cass.get_match(summoner.match_history[3].id, region='RU').red_team.participants:
+            if x.summoner.name == summoner.name:
+                ch4 = '(' + x.champion.name + ')'
+                if cass.get_match(summoner.match_history[3].id, region='RU').red_team.win == False:
+                    win3 = ch4+"Поражение:red_circle:"
+                else:
+                    win3 = ch4+'Победа:green_circle:'
         for x in cass.get_match(summoner.match_history[3].id, region='RU').blue_team.participants:
             if x.summoner.name == summoner.name:
+                ch4 = '(' + x.champion.name + ')'
                 if cass.get_match(summoner.match_history[3].id, region='RU').blue_team.win == False:
-                    win4 = "Поражение:red_circle:"
+                    win4 = ch4+"Поражение:red_circle:"
                 else:
-                    win4 = 'Победа:green_circle:'
+                    win4 = ch4+'Победа:green_circle:'
     wins = win1 +'\n'+win2+'\n'+win3+'\n'+win4
     t = 'Информация о призывателе: '+name
     embed = discord.Embed(title=t, color=0xf5f5f5)
