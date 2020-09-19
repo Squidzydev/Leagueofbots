@@ -514,6 +514,34 @@ async def mid(ctx, ):
         role = discord.utils.get(ctx.guild.roles, name="Мид")
         await member.add_roles(role)
 
+@Bot.command()
+@commands.has_permissions(administrator=True)
+async def mute(ctx,  channel: int = None):
+    await ctx.message.delete()
+
+    if channel == None:
+       pass
+    else:
+        ch = Bot.get_channel(channel)
+        members_list = ch.members
+        for x in members_list:
+
+            await x.edit(mute = True)
+
+
+@Bot.command()
+@commands.has_permissions(administrator=True)
+async def unmute(ctx, channel: int = None):
+    await ctx.message.delete()
+
+    if channel == None:
+        pass
+    else:
+        ch = Bot.get_channel(channel)
+        members_list = ch.members
+        for x in members_list:
+            await x.edit(mute=False)
+
 
 @Bot.command(aliases=['лес', 'лесник'])
 async def jungle(ctx, ):
