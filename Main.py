@@ -515,33 +515,31 @@ async def mid(ctx, ):
         await member.add_roles(role)
 
 @Bot.command()
-@commands.has_permissions(administrator=True)
-async def mute(ctx,  channel: int = None):
+async def mute(ctx,  channel: str = None):
     await ctx.message.delete()
-
-    if channel == None:
-       pass
-    else:
-        ch = Bot.get_channel(channel)
-        members_list = ch.members
-        for x in members_list:
-
-            await x.edit(mute = True)
+    for a in ctx.message.author.roles:
+        if "canmute" in a.name:
+            if channel == None:
+               pass
+            else:
+                ch = discord.utils.get(ctx.message.guild.voice_channels, name=channel)
+                members_list = ch.members
+                for x in members_list:
+                    await x.edit(mute = True)
 
 
 @Bot.command()
-@commands.has_permissions(administrator=True)
-async def unmute(ctx, channel: int = None):
+async def unmute(ctx,  channel: str = None):
     await ctx.message.delete()
-
-    if channel == None:
-        pass
-    else:
-        ch = Bot.get_channel(channel)
-        members_list = ch.members
-        for x in members_list:
-            await x.edit(mute=False)
-
+    for a in ctx.message.author.roles:
+        if "canmute" in a.name:
+            if channel == None:
+               pass
+            else:
+                ch = discord.utils.get(ctx.message.guild.voice_channels, name=channel)
+                members_list = ch.members
+                for x in members_list:
+                    await x.edit(mute = False)
 
 @Bot.command(aliases=['лес', 'лесник'])
 async def jungle(ctx, ):
