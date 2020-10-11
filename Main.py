@@ -225,16 +225,9 @@ all_runes_russia = {
 }
 Bot.remove_command('help')
 
-
-@Bot.event
-async def on_member_join(member):
-    channel = Bot.get_channel(705400966148784149)
-    await channel.send(f'Привет, легенда {member.mention}, ты попал на сервер League of War, загляни в канал #правила')
-
-
 @Bot.event
 async def on_ready():
-    activity = discord.Game(name='Люблю печеньки')
+    activity = discord.Game(name='Помогу чем смогу!')
     await Bot.change_presence(activity=activity)
 
 @Bot.command()
