@@ -227,7 +227,7 @@ Bot.remove_command('help')
 
 @Bot.event
 async def on_ready():
-    activity = discord.Game(name='Помогу чем смогу!')
+    activity = discord.Game(name='!help - помощь по боту')
     await Bot.change_presence(activity=activity)
 
 @Bot.command()
