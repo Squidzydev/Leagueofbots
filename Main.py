@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 import requests
 import os
+from random import *
 
 from bs4 import BeautifulSoup
 from discord import Colour
@@ -487,7 +488,45 @@ async def clear(ctx, amount: int = None):
                        icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
         await ctx.send(embed=emb, delete_after=10)
 
+@Bot.command(aliases=['рандом','прятки','кто'])
+@commands.has_permissions(administrator=True)
+async def random(ctx, name_of_channel: str = None, count: int = 1, par: str = ''):
+    await ctx.message.delete()
+    members = []
+    random_members = ''
+    ch = discord.utils.get(ctx.message.guild.voice_channels, name=name_of_channel)
+    members_list = ch.members
+    if name_of_channel == None or count == None or count <1:
+        emb = discord.Embed()
+        emb.title = 'Что-то пошло не так...'
+        emb.description = 'Проверьте введенные данные: ' \
+                          '!рандом канал кол-во'
+        emb.colour = 0xff1919
+        message = await ctx.send(embed=emb)
+        await asyncio.sleep(10)
+        await message.delete()
+    else:
+        for x in range(count):
+            member = choice(members_list)
+            members.append(member.name)
+            members = list(set(members))
 
+        if par == '':
+            for x in members:
+                random_members += x + '\n'
+        else:
+            for x in members:
+                random_members += x +' **'+par+'**' + '\n'
+        emb = discord.Embed()
+        emb.title = 'Случайно выбранные участники из канала '+name_of_channel
+        emb.description = random_members
+        emb.colour = 0xfcfafa
+        emb.set_footer(text='LeagueOfBots',
+                       icon_url='https://cdn.discordapp.com/attachments/500621541546000388/709146278050922596/1568968178125834341.jpg')
+
+        message = await ctx.send(embed=emb)
+        await asyncio.sleep(10)
+        await message.delete()
 @Bot.command(aliases=['лайв', 'лаив'])
 async def live(ctx, name: str = None):
     if name == None:
