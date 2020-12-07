@@ -1,4 +1,5 @@
 requests
+random
 beautifulsoup4
 discord.py
 cassiopeia
