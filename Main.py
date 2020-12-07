@@ -246,6 +246,7 @@ async def help(ctx):
                                                        '!summoner {ник призывателя} - ранк, уровень и мейн призывателя в ранкеде\n'
                                                        '!live {ник призывателя} - статистика матча\n'
                                                        '!changelog - изменения бота\n'
+                                                       '!random {название канала} {кол-во участников}\n'
                                                        'https://goo.su/leaguebot - добавь бота к себе!', color=0xf5f5f5)
 
     embed.set_footer(text='LeagueOfBots',
@@ -262,7 +263,9 @@ async def changelog(ctx):
                           description='**1.3**\n'
                                       '$!ранг -> !summoner(Команда изменена)'
                                       '**1.4**\n'
-                                      '$Удалены команды **!bot, !top, !mid, !sup, !jungle** за ненадобностью',
+                                      '$Удалены команды **!bot, !top, !mid, !sup, !jungle** за ненадобностью'
+                                      '**1.5**\n'
+                                      '$Добавлена команда !random',
                           color=0xf5f5f5)
 
     embed.set_footer(text='LeagueOfBots',
