@@ -537,9 +537,6 @@ async def live(ctx, name: str = None):
         await ctx.message.delete()
     else:
         await ctx.message.delete()
-        mes = await ctx.send('Ожидание может занять до 1 минуты, т.к. сервера перегружены')
-        await asyncio.sleep(4)
-        await mes.delete()
         key = os.environ.get('RIOT')
         cass.set_riot_api_key(key)
         cass.set_default_region("RU")
